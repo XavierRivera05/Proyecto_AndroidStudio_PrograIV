@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:gravity="center_horizontal"
+    android:background="#2F2E2E">
+
+    <!--área para escribir XDD-->
+    <EditText
+        android:id="@+id/editTextNota"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="20dp"
+        android:background="#161616"
+        android:elevation="2dp"
+        android:gravity="top"
+        android:hint="Escribe tu nota :)"
+        android:inputType="textMultiLine"
+        android:minLines="5"
+        android:padding="12dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#C8C6C6" />
+
+    <!--botón de guardao-->
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Guardar nota"
+        android:textColor="#C8C6C6"
+        android:backgroundTint="#161616"
+        android:layout_marginTop="12dp"/>
+
+    <!--textview para mostrar lo guardado-->
+    <TextView
+        android:id="@+id/textViewNotas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay notas guardadas todavía."
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="#C8C6C6"
+        android:textSize="16sp"/>
+
+</LinearLayout>
