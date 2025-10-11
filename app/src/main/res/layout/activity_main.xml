@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:padding="24dp"
     android:gravity="center_horizontal"
-    android:background="#2F2E2E">
+    android:background="#313131">
 
     <!--área para escribir XDD-->
     <EditText
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="250dp"
         android:layout_marginBottom="20dp"
-        android:background="#161616"
+        android:background="@drawable/borde_edittext"
         android:elevation="2dp"
         android:gravity="top"
         android:hint="Escribe tu nota :)"
@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:text="Guardar nota"
         android:textColor="#C8C6C6"
+        android:background="@drawable/borde_boton"
         android:backgroundTint="#161616"
         android:layout_marginTop="12dp"/>
 
