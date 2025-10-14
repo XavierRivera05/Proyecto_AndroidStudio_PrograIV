@@ -13,12 +13,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main) //de aquí se carga el layout
-
-        val btnNuevaNota = findViewById<LinearLayout>(R.id.btnNuevaNota)
-        btnNuevaNota.setOnClickListener{
-            val intent = Intent(this, EditorNotaActivity::class.java)
-            startActivity(intent)
-        }
     }
 }
 
