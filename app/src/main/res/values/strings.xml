@@ -18,5 +18,10 @@
     <string name="favorita">Favorita</string>
     <string name="fijada">Fijada</string>
     <string name="ultima_edicion">Última edición: —</string>
+    <string name="volver">Atrás</string>
+    <string name="cambiar_tema">Cambiar tema</string>
+    <string name="papelera">Papelera</string>
+
+
 
 </resources>

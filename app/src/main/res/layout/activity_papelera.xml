@@ -12,6 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/volver"
+        android:src="@android:drawable/ic_menu_revert" />
+
+
     <ListView
         android:id="@+id/listTrash"
         android:layout_width="match_parent"

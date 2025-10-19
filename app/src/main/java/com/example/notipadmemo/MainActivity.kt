@@ -18,6 +18,28 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        // Aplica el tema guardado (si no lo tienes ya)
+        ThemeUtils.applySavedTheme(this)
+
+// Botón: Cambiar tema
+        findViewById<View>(R.id.btnTheme).setOnClickListener {
+            val next = ThemeUtils.toggleTheme(this)
+            val msg = if (next == androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES)
+                "Tema oscuro activado" else "Tema claro activado"
+            android.widget.Toast.makeText(this, msg, android.widget.Toast.LENGTH_SHORT).show()
+            recreate()
+        }
+
+// Botón: Papelera
+        findViewById<View>(R.id.btnPapelera).setOnClickListener {
+            startActivity(android.content.Intent(this, PapeleraActivity::class.java))
+        }
+
+// Botón: Nueva Nota
+        findViewById<View>(R.id.btnNuevaNota).setOnClickListener {
+            startActivity(android.content.Intent(this, EditorNotaActivity::class.java))
+        }
+
 
         listNotas = findViewById(R.id.listNotas)
         emptyNotas = findViewById(R.id.emptyNotas)

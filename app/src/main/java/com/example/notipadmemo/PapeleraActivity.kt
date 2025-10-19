@@ -16,6 +16,10 @@ class PapeleraActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_papelera)
+        findViewById<View>(R.id.btnBack).setOnClickListener {
+            finish() // Cierra la activity y regresa a la anterior
+        }
+
 
         list = findViewById(R.id.listTrash)
         empty = findViewById(R.id.emptyTrash)
