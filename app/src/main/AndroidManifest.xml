@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotipadMemo">
+        <activity android:name=".PapeleraActivity"/>
         <activity
             android:name=".EditorNotaActivity"
             android:exported="false"
@@ -19,7 +20,8 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.NotipadMemo">
+            android:theme="@style/Theme.NotipadMemo"
+            android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

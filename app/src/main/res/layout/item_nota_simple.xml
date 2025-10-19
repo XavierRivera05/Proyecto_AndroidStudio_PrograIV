@@ -17,12 +17,12 @@
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:text="(Sin título)"
             android:textColor="#FFFFFF"
-            android:textSize="16sp"
-            android:maxLines="1"
-            android:ellipsize="end" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/txtSub"
@@ -43,5 +43,7 @@
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Eliminar"
-        android:src="@drawable/ico_eliminar"/>
+        android:src="@drawable/ico_eliminar"
+        android:focusable="false"
+        android:focusableInTouchMode="false"/>
 </LinearLayout>

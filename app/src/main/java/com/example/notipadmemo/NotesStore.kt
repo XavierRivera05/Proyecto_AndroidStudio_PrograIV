@@ -6,48 +6,103 @@ import org.json.JSONObject
 
 object NotesStore {
     private const val SP_NAME = "notepad"
-    private const val KEY = "notes"
+    private const val KEY = "notes"     // colección de tenedores
+    private const val TRASH = "trash"   // papelera de reciclaje
 
+    // "Ayudadores" XD o helpers
+    private fun sp(ctx: Context) =
+        ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+
+    private fun getArray(sp: android.content.SharedPreferences, key: String) =
+        JSONArray(sp.getString(key, "[]"))
+
+    private fun putArray(sp: android.content.SharedPreferences, key: String, arr: JSONArray) =
+        sp.edit().putString(key, arr.toString()).apply()
+
+    // los previews
     fun getNotes(ctx: Context): MutableList<String> {
-        val sp = ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-        val json = sp.getString(KEY, "[]") ?: "[]"
-        val arr = JSONArray(json)
+        val arr = getArray(sp(ctx), KEY)
         val list = mutableListOf<String>()
         for (i in 0 until arr.length()) {
             val o = arr.getJSONObject(i)
             val title = o.optString("title")
             val content = o.optString("content")
-            // Texto que se mostrará en la lista (título + primera línea)
-            val preview = if (title.isNotBlank()) title else content.lines().firstOrNull().orEmpty()
+            val preview = if (title.isNotBlank()) title else content.lineSequence().firstOrNull().orEmpty()
             list.add(preview.ifBlank { "(Sin título)" })
         }
         return list
     }
 
+    // el CRUDo de notas
     fun addNote(ctx: Context, title: String, content: String) {
-        val sp = ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-        val arr = JSONArray(sp.getString(KEY, "[]"))
+        val s = sp(ctx)
+        val arr = getArray(s, KEY)
         val obj = JSONObject().apply {
             put("title", title)
             put("content", content)
             put("time", System.currentTimeMillis())
         }
         arr.put(obj)
-        sp.edit().putString(KEY, arr.toString()).apply()
+        putArray(s, KEY, arr)
     }
 
+    fun getNote(ctx: Context, index: Int): JSONObject? {
+        val arr = getArray(sp(ctx), KEY)
+        return if (index in 0 until arr.length()) arr.getJSONObject(index) else null
+    }
+
+    fun updateNote(ctx: Context, index: Int, title: String, content: String) {
+        val s = sp(ctx)
+        val arr = getArray(s, KEY)
+        if (index !in 0 until arr.length()) return
+        val obj = arr.getJSONObject(index)
+        obj.put("title", title)
+        obj.put("content", content)
+        obj.put("time", System.currentTimeMillis())
+        putArray(s, KEY, arr)
+    }
+
+    // Papaleta (papelera)
     fun moveToTrash(ctx: Context, index: Int) {
-        val sp = ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
-        val notes = org.json.JSONArray(sp.getString(KEY, "[]"))
-        if (index < 0 || index >= notes.length()) return
+        val s = sp(ctx)
+        val notes = getArray(s, KEY)
+        if (index !in 0 until notes.length()) return
+        val removed = notes.remove(index)   // requiere minSdk 19 (OK en la mayoría)
+        val trash = getArray(s, TRASH)
+        if (removed is JSONObject) trash.put(removed)
+        putArray(s, KEY, notes)
+        putArray(s, TRASH, trash)
+    }
 
-        val removed = notes.remove(index) // requiere minSdk ≥ 19 (ok)
-        val trash = org.json.JSONArray(sp.getString("trash", "[]"))
-        if (removed is org.json.JSONObject) trash.put(removed)
+    fun getTrash(ctx: Context): MutableList<String> {
+        val arr = getArray(sp(ctx), TRASH)
+        val list = mutableListOf<String>()
+        for (i in 0 until arr.length()) {
+            val o = arr.getJSONObject(i)
+            val title = o.optString("title")
+            val content = o.optString("content")
+            val preview = if (title.isNotBlank()) title else content.lineSequence().firstOrNull().orEmpty()
+            list.add(preview.ifBlank { "(Sin título)" })
+        }
+        return list
+    }
 
-        sp.edit()
-            .putString(KEY, notes.toString())
-            .putString("trash", trash.toString())
-            .apply()
+    fun restoreFromTrash(ctx: Context, trashIndex: Int) {
+        val s = sp(ctx)
+        val trash = getArray(s, TRASH)
+        if (trashIndex !in 0 until trash.length()) return
+        val item = trash.remove(trashIndex)
+        val notes = getArray(s, KEY)
+        if (item is JSONObject) notes.put(item)
+        putArray(s, TRASH, trash)
+        putArray(s, KEY, notes)
+    }
+
+    fun deleteFromTrash(ctx: Context, trashIndex: Int) {
+        val s = sp(ctx)
+        val trash = getArray(s, TRASH)
+        if (trashIndex !in 0 until trash.length()) return
+        trash.remove(trashIndex)
+        putArray(s, TRASH, trash)
     }
 }
