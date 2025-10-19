@@ -4,4 +4,19 @@
     <string name="action_search">Buscar</string>
     <string name="action_settings">Configuración</string>
     <string name="action_matching">Emparejar</string>
+
+    <string name="editar_nota">Editar nota</string>
+    <string name="atras">Atrás</string>
+    <string name="guardar">Guardar</string>
+    <string name="adjuntar">Adjuntar</string>
+    <string name="compartir">Compartir</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="nuevo">Nuevo</string>
+    <string name="titulo_hint">Título</string>
+    <string name="contenido_hint">Escribe tu nota...</string>
+    <string name="color_label">Color:</string>
+    <string name="favorita">Favorita</string>
+    <string name="fijada">Fijada</string>
+    <string name="ultima_edicion">Última edición: —</string>
+
 </resources>
