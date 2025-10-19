@@ -1,66 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-<LinearLayout
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     android:background="#121212"
-    android:padding="24dp">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <!--Título de la nota-->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nueva nota"
-        android:textColor="#FFFFFF"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="16dp"
-        android:padding="10dp"/>
-
-    <!--Campo para escribir-->
-    <EditText
-        android:id="@+id/etTitulo"
+    <!-- Barra superior -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Nombre de la nota..."
-        android:background="@drawable/borde_edittext"
-        android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#888888"
-        android:layout_marginBottom="16dp"/>
+        android:layout_height="48dp"
+        android:background="#1E1E1E"
+        android:gravity="center_vertical"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp">
 
-    <EditText
-        android:id="@+id/editTextNota"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/borde_edittext"
-        android:elevation="2dp"
-        android:gravity="top"
-        android:hint="Escribe tu nota :)..."
-        android:inputType="textMultiLine"
-        android:minLines="5"
-        android:padding="12dp"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#C8C6C6" />
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Atrás"
+            android:src="@android:drawable/ic_menu_revert"/>
 
-    <!--Botón de guardado-->
-    <Button
-        android:id="@+id/btnGuardar"
+        <TextView
+            android:id="@+id/txtTituloBarra"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Editar nota"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:gravity="center" />
+
+        <ImageButton
+            android:id="@+id/btnGuardar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="Guardar"
+            android:src="@android:drawable/ic_menu_save"/>
+    </LinearLayout>
+
+    <!-- Contenido scrolleable -->
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Guardar nota"
-        android:textColor="#FFFF"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:background="@drawable/borde_boton"
-        android:layout_marginTop="12dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Título -->
+            <EditText
+                android:id="@+id/inputTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Título"
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:background="#1E1E1E"
+                android:padding="12dp"
+                android:maxLines="1" />
+
+            <!-- Contenido -->
+            <EditText
+                android:id="@+id/inputContenido"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="12dp"
+                android:hint="Escribe tu nota..."
+                android:textColor="#FFFFFF"
+                android:textColorHint="#80FFFFFF"
+                android:background="#1E1E1E"
+                android:padding="12dp"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                android:overScrollMode="always" />
+
+            <!-- Paleta de color simple -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color:"
+                android:textColor="#FFFFFF"
+                android:layout_marginTop="12dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6dp">
+
+                <View
+                    android:id="@+id/color1"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#FFF59D" />
+
+                <View
+                    android:id="@+id/color2"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#C8E6C9" />
+
+                <View
+                    android:id="@+id/color3"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="#BBDEFB" />
+
+                <View
+                    android:id="@+id/color4"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="#F8BBD0" />
+            </LinearLayout>
+
+            <!-- Marcas rápidas -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <CheckBox
+                    android:id="@+id/checkFavorita"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Favorita"
+                    android:textColor="#FFFFFF" />
+
+                <CheckBox
+                    android:id="@+id/checkFijada"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Fijada"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="16dp" />
+            </LinearLayout>
+
+            <!-- Acciones secundarias -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="12dp">
+
+                <Button
+                    android:id="@+id/btnAdjuntar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Adjuntar"
+                    android:drawableStart="@android:drawable/ic_input_add"
+                    android:drawablePadding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:background="#2A2A2A" />
+
+                <Button
+                    android:id="@+id/btnCompartir"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginStart="8dp"
+                    android:text="Compartir"
+                    android:drawableStart="@android:drawable/ic_menu_share"
+                    android:drawablePadding="8dp"
+                    android:textColor="#FFFFFF"
+                    android:background="#2A2A2A" />
+            </LinearLayout>
+
+            <!-- Fecha / estado -->
+            <TextView
+                android:id="@+id/txtFecha"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Última edición: —"
+                android:textColor="#80FFFFFF"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Barra inferior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="#4E435C"
+        android:gravity="center">
+
+        <LinearLayout
+            android:id="@+id/btnEliminar"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_menu_delete"/>
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="Eliminar"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="6dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btnNuevo"
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@android:drawable/ic_menu_edit"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nuevo"
+                android:textColor="#FFFFFF"
+                android:layout_marginStart="6dp" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
-
-</ScrollView>
