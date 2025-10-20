@@ -1,80 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#121212">
 
-    <!-- CONTENIDO PRINCIPAL (scrollable) -->
-    <ScrollView
-        android:id="@+id/scrollContent"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
-        <!-- TODO: Pega aquí tu contenido actual de la actividad (lo que antes estaba dentro del ScrollView) -->
-        <!-- Si ya tenías un LinearLayout con todo el contenido, colócalo aquí dentro -->
+        <!-- Título -->
+        <TextView
+            android:id="@+id/txtTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notipad Memo"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Fila de iconos superiores -->
         <LinearLayout
-            android:id="@+id/contentRoot"
-            android:orientation="vertical"
-            android:padding="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
 
-            <!-- EJEMPLO de encabezado existente (ajústalo a lo tuyo) -->
-            <TextView
-                android:id="@+id/txtTitulo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Notipad Memo"
-                android:textStyle="bold"
-                android:textSize="22sp"
-                android:layout_marginBottom="12dp" />
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ico_home"/>
 
-            <!-- Aquí seguirían tus vistas: lista, tarjetas, etc. -->
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ico_brujula"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ico_notificacion"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ico_usuario"/>
+
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ico_opciones"/>
 
         </LinearLayout>
-    </ScrollView>
 
-    <!-- BARRA INFERIOR FIJA -->
-    <LinearLayout
-        android:id="@+id/bottomBar"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:background="?android:colorBackground"
-        android:elevation="6dp"
-        android:orientation="horizontal"
-        android:gravity="center_vertical|space_between">
+        <!-- Buscador simple -->
+        <EditText
+            android:id="@+id/edtBuscar"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="Buscar nota"
+            android:drawableStart="@drawable/ico_menu"
+            android:drawablePadding="10dp"
+            android:padding="10dp"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#80FFFFFF"
+            android:background="#4E435C"
+            android:layout_marginBottom="16dp"/>
 
-        <!-- Botón: Modo Claro/Oscuro -->
-        <ImageButton
-            android:id="@+id/btnTheme"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/cambiar_tema"
-            android:src="@android:drawable/btn_star" />
-
-        <!-- Botón: Papelera -->
-        <ImageButton
-            android:id="@+id/btnPapelera"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:background="@android:color/transparent"
-            android:contentDescription="@string/papelera"
-            android:src="@android:drawable/ic_menu_delete" />
-
-        <!-- Botón: Nueva nota -->
-        <Button
-            android:id="@+id/btnNuevaNota"
+        <!-- Listado -->
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="44dp"
-            android:minWidth="120dp"
-            android:text="Nueva"
-            android:textAllCaps="false" />
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="Notas"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"/>
 
-</LinearLayout>
+        <ListView
+            android:id="@+id/listNotas"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:divider="#333333"
+            android:dividerHeight="1dp"
+            android:background="#1A1A1A"
+            android:padding="8dp"/>
+
+        <!-- Estado vacío -->
+        <TextView
+            android:id="@+id/emptyNotas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No hay notas por aquí..."
+            android:textColor="#80FFFFFF"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"/>
+
+        <!-- Barra inferior -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:layout_marginTop="25dp"
+            android:background="#4E435C">
+
+            <LinearLayout
+                android:id="@+id/btnModo"
+                android:orientation="horizontal"
+                android:layout_width="1dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ico_sol"/>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Modo"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnBorrar"
+                android:orientation="horizontal"
+                android:layout_width="1dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ico_eliminar"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Papelera"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="6dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnNuevo"
+                android:orientation="horizontal"
+                android:layout_width="1dp"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ico_nuevanota"/>
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:text="Nuevo"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginStart="10dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
+
