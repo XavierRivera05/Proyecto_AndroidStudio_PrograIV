@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="16dp"
+        android:padding="80dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -27,18 +27,6 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:layout_marginBottom="20dp">
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ico_home"/>
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ico_brujula"/>
 
             <ImageView
                 android:layout_width="35dp"
@@ -90,7 +78,7 @@
             android:divider="#333333"
             android:dividerHeight="1dp"
             android:background="#1A1A1A"
-            android:padding="8dp"/>
+            android:padding="10dp"/>
 
         <!-- Estado vacío -->
         <TextView
@@ -105,35 +93,39 @@
         <!-- Barra inferior -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:gravity="center"
-            android:layout_marginTop="25dp"
-            android:background="#4E435C">
+            android:layout_marginTop="30dp"
+            android:background="#4E435C"
+            android:layout_marginBottom="14dp"
+            android:paddingHorizontal="2dp">
 
             <LinearLayout
                 android:id="@+id/btnModo"
-                android:orientation="horizontal"
                 android:layout_width="1dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ico_sol"/>
+                    android:src="@drawable/ico_sol" />
+
                 <TextView
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
                     android:text="Modo"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginStart="6dp" />
+                    android:textColor="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/btnBorrar"
                 android:orientation="horizontal"
                 android:layout_width="1dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:gravity="center">
                 <ImageView
@@ -152,7 +144,7 @@
                 android:id="@+id/btnNuevo"
                 android:orientation="horizontal"
                 android:layout_width="1dp"
-                android:layout_height="60dp"
+                android:layout_height="50dp"
                 android:layout_weight="1"
                 android:gravity="center">
                 <ImageView
