@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.NotipadMemo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Colores base del modo claro -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryDark">@color/purple_700</item>
-        <item name="colorAccent">@color/teal_200</item>
-
-        <item name="colorOnPrimary">@android:color/white</item>
-        <item name="android:textColorPrimary">#000000</item>
-
-        <!-- Compatibilidad Material 3 -->
-        <item name="android:statusBarColor">?attr/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="colorPrimary">@color/primaryColor</item>
+        <item name="colorAccent">@color/accentColor</item>
+        <item name="android:windowBackground">@color/backgroundColor</item>
+        <item name="android:textColorPrimary">@color/textColor</item>
+        <item name="android:statusBarColor">@color/primaryColor</item>
+        <item name="android:navigationBarColor">@color/primaryColor</item>
     </style>
 </resources>
-
-
-

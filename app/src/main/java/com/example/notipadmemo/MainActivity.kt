@@ -22,11 +22,9 @@ class MainActivity : AppCompatActivity() {
     private var adapterAny: Any? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Aplica tema antes de inflar
-        ThemeUtils.applySavedTheme(this)
+        ThemeUtils.applySavedTheme(this)   // 🔥 aplica el modo guardado
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // --- Barra inferior ---
         findViewById<View>(R.id.btnModo).setOnClickListener {
             val next = ThemeUtils.toggleTheme(this)

@@ -1,11 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:padding="16dp"
-    android:background="#121212"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="?android:colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
         android:text="Papelera"
-        android:textColor="#FFFFFF"
+        android:textColor="?android:textColorPrimary"
         android:textStyle="bold"
         android:textSize="18sp"
         android:layout_marginBottom="8dp"
@@ -21,23 +24,42 @@
         android:contentDescription="@string/volver"
         android:src="@android:drawable/ic_menu_revert" />
 
-
     <ListView
         android:id="@+id/listTrash"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="#333333"
+        android:background="?android:colorBackground"
+        android:divider="?android:attr/listDivider"
         android:dividerHeight="1dp"
-        android:background="#1A1A1A"
-        android:padding="8dp"/>
+        android:padding="8dp" />
 
     <TextView
         android:id="@+id/emptyTrash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No hay notas en Papelera"
-        android:textColor="#80FFFFFF"
+        android:textColor="?android:textColorPrimary"
+        android:alpha="0.6"
         android:layout_marginTop="8dp"
         android:visibility="gone"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="end|center_vertical"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="?android:colorBackground">
+
+        <Button
+            android:id="@+id/btnVaciarPapelera"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vaciar papelera"
+            android:textAllCaps="false" />
+    </LinearLayout>
 </LinearLayout>

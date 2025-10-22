@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#121212">
+    android:background="?android:colorBackground">
 
     <LinearLayout
         android:orientation="vertical"
-        android:padding="80dp"
+        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -16,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Notipad Memo"
-            android:textColor="#FFFFFF"
+            android:textColor="?android:textColorPrimary"
             android:textSize="24sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp" />
@@ -32,23 +33,25 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ico_notificacion"/>
+                android:src="@drawable/ico_notificacion"
+                app:tint="?android:textColorPrimary" />
 
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ico_usuario"/>
+                android:src="@drawable/ico_usuario"
+                app:tint="?android:textColorPrimary" />
 
             <ImageView
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ico_opciones"/>
-
+                android:src="@drawable/ico_opciones"
+                app:tint="?android:textColorPrimary" />
         </LinearLayout>
 
-        <!-- Buscador simple -->
+        <!-- Buscador -->
         <EditText
             android:id="@+id/edtBuscar"
             android:layout_width="match_parent"
@@ -57,53 +60,58 @@
             android:drawableStart="@drawable/ico_menu"
             android:drawablePadding="10dp"
             android:padding="10dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#80FFFFFF"
-            android:background="#4E435C"
-            android:layout_marginBottom="16dp"/>
+            android:textColor="?android:textColorPrimary"
+            android:textColorHint="?android:textColorPrimary"
+            android:background="?attr/colorSurface"
+            app:tint="?android:textColorPrimary"
+            android:layout_marginBottom="16dp" />
 
-        <!-- Listado -->
+        <!-- Encabezado -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Notas"
-            android:textColor="#FFFFFF"
+            android:textColor="?android:textColorPrimary"
             android:textStyle="bold"
-            android:layout_marginBottom="6dp"/>
+            android:layout_marginBottom="6dp" />
 
+        <!-- Lista -->
         <ListView
             android:id="@+id/listNotas"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:divider="#333333"
+            android:divider="?android:attr/listDivider"
             android:dividerHeight="1dp"
-            android:background="#1A1A1A"
-            android:padding="10dp"/>
+            android:background="?android:colorBackground"
+            android:padding="10dp" />
 
-        <!-- Estado vacío -->
+        <!-- Texto vacío -->
         <TextView
             android:id="@+id/emptyNotas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No hay notas por aquí..."
-            android:textColor="#80FFFFFF"
+            android:textColor="?android:textColorPrimary"
+            android:alpha="0.6"
             android:layout_marginTop="8dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
-        <!-- Barra inferior -->
+        <!-- Barra inferior fija -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="56dp"
+            android:orientation="horizontal"
             android:gravity="center"
             android:layout_marginTop="30dp"
-            android:background="#4E435C"
             android:layout_marginBottom="14dp"
-            android:paddingHorizontal="2dp">
+            android:paddingHorizontal="2dp"
+            android:background="?attr/colorSurface">
 
+            <!-- Botón Modo -->
             <LinearLayout
                 android:id="@+id/btnModo"
-                android:layout_width="1dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:orientation="horizontal">
@@ -111,55 +119,62 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ico_sol" />
+                    android:src="@drawable/ico_sol"
+                    app:tint="?android:textColorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="6dp"
                     android:text="Modo"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="?android:textColorPrimary" />
             </LinearLayout>
 
+            <!-- Botón Papelera -->
             <LinearLayout
                 android:id="@+id/btnBorrar"
-                android:orientation="horizontal"
-                android:layout_width="1dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ico_eliminar"/>
+                    android:src="@drawable/ico_eliminar"
+                    app:tint="?android:textColorPrimary" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Papelera"
-                    android:textColor="#FFFFFF"
+                    android:textColor="?android:textColorPrimary"
                     android:layout_marginStart="6dp" />
             </LinearLayout>
 
+            <!-- Botón Nueva Nota -->
             <LinearLayout
                 android:id="@+id/btnNuevo"
-                android:orientation="horizontal"
-                android:layout_width="1dp"
-                android:layout_height="50dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center">
+                android:gravity="center"
+                android:orientation="horizontal">
+
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:src="@drawable/ico_nuevanota"/>
+                    android:src="@drawable/ico_nuevanota"
+                    app:tint="?android:textColorPrimary" />
+
                 <TextView
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Nuevo"
-                    android:textColor="#FFFFFF"
-                    android:layout_marginStart="10dp"/>
+                    android:textColor="?android:textColorPrimary"
+                    android:layout_marginStart="10dp" />
             </LinearLayout>
         </LinearLayout>
-
     </LinearLayout>
 </ScrollView>
-
