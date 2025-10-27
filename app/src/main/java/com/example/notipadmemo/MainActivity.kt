@@ -15,21 +15,21 @@ class MainActivity : AppCompatActivity() {
     private lateinit var listNotas: ListView
     private lateinit var emptyNotas: TextView
 
-    // Usamos MutableList para poder reemplazar el contenido fácilmente
+    //Usamos MutableList para poder reemplazar el contenido fácilmente
     private val data: MutableList<String> = mutableListOf()
 
-    // Guardamos el adapter en una var genérica; si falla NotasAdapter, usamos ArrayAdapter
+    //Guardamos el adapter en una var genérica; si falla NotasAdapter, usamos ArrayAdapter
     private var adapterAny: Any? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ThemeUtils.applySavedTheme(this)   // 🔥 aplica el modo guardado
+        ThemeUtils.applySavedTheme(this)   //aplica el modo guardado
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         // --- Barra inferior ---
         findViewById<View>(R.id.btnModo).setOnClickListener {
             val next = ThemeUtils.toggleTheme(this)
             val msg = if (next == AppCompatDelegate.MODE_NIGHT_YES)
-                "🌙 Tema oscuro activado" else "☀️ Tema claro activado"
+                "¡Tema oscuro activado!" else "¡Tema claro activado!"
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             recreate()
         }

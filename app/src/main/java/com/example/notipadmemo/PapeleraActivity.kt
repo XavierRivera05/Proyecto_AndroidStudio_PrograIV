@@ -22,7 +22,7 @@ class PapeleraActivity : AppCompatActivity() {
     private val data = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // ✅ Aplica el tema guardado ANTES de inflar
+        //Aplicar el tema guardado ANTES de inflar
         ThemeUtils.applySavedTheme(this)
 
         super.onCreate(savedInstanceState)
