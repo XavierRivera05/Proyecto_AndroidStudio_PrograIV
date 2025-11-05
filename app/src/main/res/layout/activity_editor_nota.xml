@@ -90,15 +90,16 @@
                 android:layout_marginTop="12dp" />
 
             <LinearLayout
+                android:id="@+id/layoutColores"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="6dp">
 
-                <View android:id="@+id/color1" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#FFF59D" />
-                <View android:id="@+id/color2" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#C8E6C9" />
-                <View android:id="@+id/color3" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#BBDEFB" />
-                <View android:id="@+id/color4" android:layout_width="28dp" android:layout_height="28dp" android:background="#F8BBD0" />
+                <View android:id="@+id/colorAmarillo" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#FFF59D" />
+                <View android:id="@+id/colorVerde" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#7DCE7D" />
+                <View android:id="@+id/colorAzul" android:layout_width="28dp" android:layout_height="28dp" android:layout_marginEnd="10dp" android:background="#BBDEFB" />
+                <View android:id="@+id/colorRosa" android:layout_width="28dp" android:layout_height="28dp" android:background="#F8BBD0" />
             </LinearLayout>
 
             <!-- Marcas rápidas -->

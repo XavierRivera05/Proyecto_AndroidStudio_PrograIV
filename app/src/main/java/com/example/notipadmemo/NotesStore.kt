@@ -34,16 +34,19 @@ object NotesStore {
     }
 
     // el CRUDo de notas
-    fun addNote(ctx: Context, title: String, content: String) {
-        val s = sp(ctx)
-        val arr = getArray(s, KEY)
+    fun addNote(ctx: Context, title: String, content: String, color: String, favorite: Boolean, pinned: Boolean) {
+        val sp = ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+        val arr = JSONArray(sp.getString(KEY, "[]"))
         val obj = JSONObject().apply {
             put("title", title)
             put("content", content)
+            put("color", color)
+            put("favorite", favorite)
+            put("pinned", pinned)
             put("time", System.currentTimeMillis())
         }
         arr.put(obj)
-        putArray(s, KEY, arr)
+       sp.edit().putString(KEY, arr.toString()).apply()
     }
 
     fun getNote(ctx: Context, index: Int): JSONObject? {
@@ -51,15 +54,20 @@ object NotesStore {
         return if (index in 0 until arr.length()) arr.getJSONObject(index) else null
     }
 
-    fun updateNote(ctx: Context, index: Int, title: String, content: String) {
-        val s = sp(ctx)
-        val arr = getArray(s, KEY)
+    fun updateNote(ctx: Context, index: Int, title: String, content: String, color: String, favorite: Boolean, pinned: Boolean) {
+        val sp = ctx.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE)
+        val arr = JSONArray(sp.getString(KEY, "[]"))
         if (index !in 0 until arr.length()) return
+
         val obj = arr.getJSONObject(index)
         obj.put("title", title)
         obj.put("content", content)
+        obj.put("color", color)
+        obj.put("favorite", favorite)
+        obj.put("pinned", pinned)
         obj.put("time", System.currentTimeMillis())
-        putArray(s, KEY, arr)
+
+        sp.edit().putString(KEY, arr.toString()).apply()
     }
 
     // Papaleta (papelera)
