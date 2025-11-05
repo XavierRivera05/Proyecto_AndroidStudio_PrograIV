@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error al mover a papelera: ${it.localizedMessage}", Toast.LENGTH_LONG).show()
                 }
                 loadNotes()
-                Toast.makeText(this, "🗑️ Nota movida a la papelera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Nota movida a la papelera", Toast.LENGTH_SHORT).show()
             }
             listNotas.adapter = a
             adapterAny = a
@@ -69,6 +69,10 @@ class MainActivity : AppCompatActivity() {
 
         // Tap para editar (funciona con ambos adapters)
         listNotas.setOnItemClickListener { _, _, position, _ ->
+
+            //mensaje de prueba (clic a la nota)
+            Toast.makeText(this, "Click en nota $position", Toast.LENGTH_SHORT).show()
+
             val intent = Intent(this, EditorNotaActivity::class.java)
             intent.putExtra("note_index", position)
             startActivity(intent)
