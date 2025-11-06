@@ -2,6 +2,6 @@
 <resources>
     <color name="backgroundColor">#121212</color>
     <color name="textColor">#FFFFFF</color>
-    <color name="primaryColor">#3700B3</color>
+    <color name="primaryColor">#47ebeb</color>
     <color name="accentColor">#BB86FC</color>
 </resources>
