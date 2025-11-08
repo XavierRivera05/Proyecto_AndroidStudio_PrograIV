@@ -1,24 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="64dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="12dp"
     android:gravity="center_vertical"
     android:background="?android:colorBackground"
     android:descendantFocusability="blocksDescendants">
 
+    <!-- cuadro para colores hecho por mí XD-->
+    <View
+        android:id="@+id/viewColor"
+        android:layout_width="40dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_color_square"
+        android:layout_gravity="center_vertical"/>
 
-    <!-- Contenedor del texto -->
+    <!-- contenedor del texto -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- Título / Preview -->
+        <!-- contenedor de fijado/favorito -->
+        <LinearLayout
+            android:id="@+id/layouticonos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="2dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iconfijado"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ico_fijado"
+                app:tint="?android:textColorPrimary"
+                android:contentDescription="Nota fijada"
+                android:visibility="gone"/>
+
+            <ImageView
+                android:id="@+id/iconfavorito"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ico_favoritos"
+                app:tint="?android:textColorPrimary"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <!-- título do pagina kkkk-->
         <TextView
             android:id="@+id/txtTitulo"
             android:layout_width="match_parent"
@@ -29,7 +65,7 @@
             android:maxLines="1"
             android:ellipsize="end" />
 
-        <!-- Subtítulo opcional (por ahora oculto) -->
+        <!-- subtítulo opcional (por ahora oculto) -->
         <TextView
             android:id="@+id/txtSub"
             android:layout_width="match_parent"
@@ -42,7 +78,7 @@
             android:visibility="gone" />
     </LinearLayout>
 
-    <!-- Botón eliminar -->
+    <!-- botón eliminar -->
     <ImageButton
         android:id="@+id/btnEliminarItem"
         android:layout_width="48dp"

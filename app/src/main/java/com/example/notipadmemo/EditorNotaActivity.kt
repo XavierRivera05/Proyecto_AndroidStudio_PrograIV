@@ -30,7 +30,7 @@ class EditorNotaActivity : AppCompatActivity() {
         val colorRosa = findViewById<View>(R.id.colorRosa)
 
         val colorViews = listOf(colorAmarillo, colorVerde, colorAzul, colorRosa)
-        val colores = listOf("FFF59DFF","7DCE7DFF","BBDEFBFF","F8BBD0FF")
+        val colores = listOf("#FFF59D","#7DCE7D","#BBDEFB","#F8BBD0")
 
         //Referencia a los chequeos de favorita y fijada
         val chkFavorita = findViewById<CheckBox>(R.id.checkFavorita)
@@ -47,12 +47,36 @@ class EditorNotaActivity : AppCompatActivity() {
                 chkFijada.isChecked = it.optBoolean("pinned", false)
                 isFavorite = it.optBoolean("favorite", false)
                 isPinned = it.optBoolean("pinned", false)
+
+                //restauración del color añadido
+                selectedColor = it.optString("color", "#FFFFFF")
+
+                //resaltar el colorado
+                colorViews.forEach { v ->
+                    v.alpha = if (colores.indexOf(selectedColor) != -1 &&
+                        colores[colores.indexOf(selectedColor)] == selectedColor
+                        ) 1f else 0.5f
+                }
             }
         }
 
         // botón atrás
         findViewById<View>(R.id.btnBack).setOnClickListener {
-            finish()
+
+            val titulo = inputTitulo.text.toString()
+            val contenido = inputContenido.text.toString()
+
+            if (noteIndex >= 0) {
+                // Actualizar nota existente
+                NotesStore.updateNote(this, noteIndex, titulo, contenido, selectedColor, isFavorite, isPinned)
+                Toast.makeText(this, "Nota actualizada :)", Toast.LENGTH_SHORT).show()
+            } else {
+                // Agregar nueva nota
+                NotesStore.addNote(this, titulo, contenido, selectedColor, isFavorite, isPinned)
+                Toast.makeText(this, "¡Nota guardada!", Toast.LENGTH_SHORT).show()
+            }
+
+            finish() //volver a la pantalla principal
         }
 
         // botón de guardar
@@ -92,7 +116,6 @@ class EditorNotaActivity : AppCompatActivity() {
                 //resaltar el colorsito seleccionado
                 colorViews.forEach { it.alpha = 0.5f }
                 view.alpha = 1f
-                Toast.makeText(this, "Color seleccionado: $selectedColor", Toast.LENGTH_SHORT).show()
             }
         }
 

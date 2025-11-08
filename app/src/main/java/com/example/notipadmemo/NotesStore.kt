@@ -113,4 +113,13 @@ object NotesStore {
         trash.remove(trashIndex)
         putArray(s, TRASH, trash)
     }
+
+    fun getAllNotes(ctx: Context): MutableList<JSONObject> {
+        val arr = getArray(sp(ctx), KEY)
+        val list = mutableListOf<JSONObject>()
+        for (i in 0 until arr.length()) {
+            list.add(arr.getJSONObject(i))
+        }
+        return list
+    }
 }

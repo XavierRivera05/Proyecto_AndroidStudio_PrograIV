@@ -9,22 +9,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import org.json.JSONObject
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var listNotas: ListView
     private lateinit var emptyNotas: TextView
 
-    //Usamos MutableList para poder reemplazar el contenido fácilmente
-    private val data: MutableList<String> = mutableListOf()
+    private val data = mutableListOf<String>()  //Lista de variables con chimol
+    private val indexMap = mutableListOf<Int>() //mapita de posición
 
-    //Guardamos el adapter en una var genérica; si falla NotasAdapter, usamos ArrayAdapter
     private var adapterAny: Any? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        ThemeUtils.applySavedTheme(this)   //aplica el modo guardado
+        ThemeUtils.applySavedTheme(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         // --- Barra inferior ---
         findViewById<View>(R.id.btnModo).setOnClickListener {
             val next = ThemeUtils.toggleTheme(this)
@@ -33,9 +34,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
             recreate()
         }
+
         findViewById<View>(R.id.btnBorrar).setOnClickListener {
             startActivity(Intent(this, PapeleraActivity::class.java))
         }
+
         findViewById<View>(R.id.btnNuevo).setOnClickListener {
             startActivity(Intent(this, EditorNotaActivity::class.java))
         }
@@ -45,13 +48,19 @@ class MainActivity : AppCompatActivity() {
         emptyNotas = findViewById(R.id.emptyNotas)
         listNotas.emptyView = emptyNotas
 
-        // Intenta usar tu NotasAdapter; si falla, usa un ArrayAdapter de respaldo
+        // Adaptador personalizado
         val notasAdapterOk = runCatching {
-            val a = NotasAdapter(this, data) { position ->
+            val a = NotasAdapter(this, data, indexMap) { position ->
+                // Usar índice real, no posición visible
+                val realIndex = indexMap.getOrNull(position) ?: return@NotasAdapter
                 runCatching {
-                    NotesStore.moveToTrash(this, position)
+                    NotesStore.moveToTrash(this, realIndex)
                 }.onFailure {
-                    Toast.makeText(this, "Error al mover a papelera: ${it.localizedMessage}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        this,
+                        "Error al mover a papelera: ${it.localizedMessage}",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
                 loadNotes()
                 Toast.makeText(this, "Nota movida a la papelera", Toast.LENGTH_SHORT).show()
@@ -67,21 +76,16 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        // Tap para editar (funciona con ambos adapters)
+        // Click para editar
         listNotas.setOnItemClickListener { _, _, position, _ ->
-
-            //mensaje de prueba (clic a la nota)
-            Toast.makeText(this, "Click en nota $position", Toast.LENGTH_SHORT).show()
-
+            val realIndex = indexMap.getOrNull(position) ?: return@setOnItemClickListener
             val intent = Intent(this, EditorNotaActivity::class.java)
-            intent.putExtra("note_index", position)
+            intent.putExtra("note_index", realIndex)
             startActivity(intent)
         }
 
-        // Carga inicial
         loadNotes()
 
-        // Info útil si entró por fallback
         if (!notasAdapterOk) {
             Toast.makeText(this, "Sugerencia: revisa NotasAdapter/NotesStore", Toast.LENGTH_SHORT).show()
         }
@@ -93,15 +97,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadNotes() {
-        val previews = runCatching {
-            NotesStore.getNotes(this)
-        }.getOrElse {
-            Toast.makeText(this, "Error leyendo notas: ${it.localizedMessage}", Toast.LENGTH_LONG).show()
-            emptyList()
-        }
+        val allNotes = NotesStore.getAllNotes(this)
+
+        // Ordenar: fijadas > favoritas > recientes
+        val sortedIndices = allNotes.indices.sortedWith(
+            compareByDescending<Int> {
+                allNotes[it].optBoolean("pinned", false)
+            }.thenByDescending {
+                allNotes[it].optBoolean("favorite", false)
+            }.thenByDescending {
+                allNotes[it].optLong("time", 0L)
+            }
+        )
 
         data.clear()
-        data.addAll(previews)
+        indexMap.clear()
+
+        for (i in sortedIndices) {
+            val note = allNotes[i]
+            val title = note.optString("title")
+            val content = note.optString("content")
+            val preview = if (title.isNotBlank()) title else content.lineSequence().firstOrNull().orEmpty()
+            data.add(preview.ifBlank { "(Sin título)" })
+            indexMap.add(i)  // Guardar índice real
+        }
 
         when (val a = adapterAny) {
             is NotasAdapter -> a.notifyDataSetChanged()
