@@ -24,4 +24,15 @@
     <string name="papelera">Papelera</string>
 
 
+    <!-- Descripciones de accesibilidad -->
+    <string name="user_icon_desc">Icono de usuario</string>
+    <string name="google_login_desc">Iniciar sesión con Google</string>
+
+    <!-- Placeholders -->
+    <string name="hint_email">Correo electrónico</string>
+    <string name="hint_password">Contraseña</string>
+
+    <!-- Botones -->
+    <string name="btn_register">Registrarse</string>
+
 </resources>

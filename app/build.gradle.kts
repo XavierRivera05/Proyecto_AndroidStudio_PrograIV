@@ -56,6 +56,11 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+    dependencies {
+        // ... otras dependencias
+        implementation("com.google.android.gms:play-services-auth:21.4.0")
+    }
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

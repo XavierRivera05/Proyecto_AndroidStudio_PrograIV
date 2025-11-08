@@ -11,18 +11,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NotipadMemo">
-
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
         <!-- NO declares ThemeUtils here -->
-
         <activity
             android:name=".PapeleraActivity"
             android:exported="false" />
-
         <activity
             android:name=".EditorNotaActivity"
             android:exported="false"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,9 +30,10 @@
             android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
+
 </manifest>
