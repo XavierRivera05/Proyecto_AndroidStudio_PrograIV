@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -64,6 +65,17 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // 🔥 Firebase BoM (maneja versiones automáticamente)
+    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
+// 🔹 Firebase Core (Analytics opcional)
+    implementation("com.google.firebase:firebase-analytics")
+// 🔹 Firebase Authentication (si usarás login)
+    implementation("com.google.firebase:firebase-auth")
+// 🔹 Firebase Realtime Database (para guardar notas)
+    implementation("com.google.firebase:firebase-database")
+// 🔹 Firebase Storage (si guardarás imágenes)
+    implementation("com.google.firebase:firebase-storage")
+
 
 
 

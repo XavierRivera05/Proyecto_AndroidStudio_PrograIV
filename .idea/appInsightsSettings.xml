@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.notipadmemo" />
+                  <option name="mobileSdkAppId" value="1:727086221756:android:06c09f21ae765a1f21c3b9" />
+                  <option name="projectId" value="progra4-30cfc" />
+                  <option name="projectNumber" value="727086221756" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

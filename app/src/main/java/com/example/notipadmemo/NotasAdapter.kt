@@ -1,62 +1,58 @@
 package com.example.notipadmemo
 
 import android.content.Context
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.view.ViewCompat
+import android.widget.BaseAdapter
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.graphics.drawable.DrawableCompat
 import org.json.JSONObject
 
 class NotasAdapter(
-    private val ctx: Context,
-    private val items: MutableList<String>,
+    private val context: Context,
+    private val data: MutableList<String>,
     private val indexMap: MutableList<Int>,
-    private val onDelete: (position: Int) -> Unit
-) : ArrayAdapter<String>(ctx, 0, items) {
+    private val onDelete: (Int) -> Unit
+) : BaseAdapter() {
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-        val v = convertView ?: LayoutInflater.from(ctx)
-            .inflate(R.layout.item_nota_simple, parent, false)
+    override fun getCount(): Int = data.size
+    override fun getItem(position: Int): Any = data[position]
+    override fun getItemId(position: Int): Long = position.toLong()
 
-        val titulo = v.findViewById<TextView>(R.id.txtTitulo)
-        titulo.text = items[position]
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        val inflater = LayoutInflater.from(context)
+        val view = convertView ?: inflater.inflate(R.layout.item_nota_simple, parent, false)
 
-        val viewColor = v.findViewById<View>(R.id.viewColor)
-        val icoFijado = v.findViewById<ImageView>(R.id.iconfijado)
-        val icoFavorito = v.findViewById<ImageView>(R.id.iconfavorito)
-        val layoutIconos = v.findViewById<LinearLayout>(R.id.layouticonos)
+        val txtTitulo = view.findViewById<TextView>(R.id.txtTitulo)
+        val txtSub = view.findViewById<TextView>(R.id.txtSub)
+        val iconFavorito = view.findViewById<ImageView>(R.id.iconfavorito)
+        val iconFijado = view.findViewById<ImageView>(R.id.iconfijado)
+        val colorView = view.findViewById<View>(R.id.viewColor)
+        val btnEliminar = view.findViewById<ImageButton>(R.id.btnEliminarItem)
 
-        // 🔹 Obtener índice real de la nota (del indexMap)
-        val realIndex = indexMap.getOrNull(position)
-        val nota: JSONObject? = realIndex?.let { NotesStore.getNote(ctx, it) }
+        val noteList = NotesStore.getAllNotes(context)
+        val noteIndex = indexMap.getOrNull(position)
+        val note: JSONObject? = noteIndex?.let { noteList.getOrNull(it) }
 
-        // 🔹 Aplicar color
-        val color = nota?.optString("color") ?: "#FFFFFF"
+        txtTitulo.text = note?.optString("title", "(Sin título)")
+        txtSub.text = note?.optString("content", "")
+
+        val isFav = note?.optBoolean("favorite", false) == true
+        val isPinned = note?.optBoolean("pinned", false) == true
+        iconFavorito.visibility = if (isFav) View.VISIBLE else View.GONE
+        iconFijado.visibility = if (isPinned) View.VISIBLE else View.GONE
+
+        val color = note?.optString("color", "#FFFFFF") ?: "#FFFFFF"
         try {
-            ViewCompat.setBackgroundTintList(
-                viewColor,
-                ColorStateList.valueOf(Color.parseColor(color))
-            )
-        } catch (_: Exception) {
-            viewColor.setBackgroundColor(Color.DKGRAY)
-        }
+            val drawable = DrawableCompat.wrap(colorView.background)
+            DrawableCompat.setTint(drawable, android.graphics.Color.parseColor(color))
+        } catch (_: Exception) {}
 
-        //Mostrar iconos de fijado y favorito (usando los nombres reales)
-        val fijado = nota?.optBoolean("pinned", false) ?: false
-        val favorito = nota?.optBoolean("favorite", false) ?: false
+        btnEliminar.setOnClickListener { onDelete(position) }
 
-        icoFijado.visibility = if (fijado) View.VISIBLE else View.GONE
-        icoFavorito.visibility = if (favorito) View.VISIBLE else View.GONE
-        layoutIconos.visibility = if (fijado || favorito) View.VISIBLE else View.GONE
-
-        //Eliminar nota (posición visible)
-        v.findViewById<ImageButton>(R.id.btnEliminarItem).setOnClickListener {
-            onDelete(position)
-        }
-
-        return v
+        return view
     }
 }

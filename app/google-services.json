@@ -1,0 +1,159 @@
+{
+  "project_info": {
+    "project_number": "727086221756",
+    "firebase_url": "https://progra4-30cfc-default-rtdb.firebaseio.com",
+    "project_id": "progra4-30cfc",
+    "storage_bucket": "progra4-30cfc.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727086221756:android:6fdfcb443619d52721c3b9",
+        "android_client_info": {
+          "package_name": "com.example.chats_kotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727086221756-av9pqdc77jq4ot3cauilg0qgv2mmpdj1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chats_kotlin",
+            "certificate_hash": "7570e4ae05359779a55d19cb5b56c18086012626"
+          }
+        },
+        {
+          "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYaJxpduut2dyZhraXPm7RyBpGEVfRzbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727086221756:android:8c087d8d8358f43f21c3b9",
+        "android_client_info": {
+          "package_name": "com.example.chatskoblin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727086221756-24jl8hkh3kobkddbphmkjoi9ifptvvkf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.chatskoblin",
+            "certificate_hash": "7570e4ae05359779a55d19cb5b56c18086012626"
+          }
+        },
+        {
+          "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYaJxpduut2dyZhraXPm7RyBpGEVfRzbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727086221756:android:06c09f21ae765a1f21c3b9",
+        "android_client_info": {
+          "package_name": "com.example.notipadmemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727086221756-5fpioviq88ij4fkhm6gpve2rmg6v1nu5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.notipadmemo",
+            "certificate_hash": "7570e4ae05359779a55d19cb5b56c18086012626"
+          }
+        },
+        {
+          "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYaJxpduut2dyZhraXPm7RyBpGEVfRzbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727086221756:android:b71a114f6f1bea2b21c3b9",
+        "android_client_info": {
+          "package_name": "notipadmemo.com"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "727086221756-9b4plmuil6qoknok16s2h2t2qte4t6i4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "notipadmemo.com",
+            "certificate_hash": "7570e4ae05359779a55d19cb5b56c18086012626"
+          }
+        },
+        {
+          "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYaJxpduut2dyZhraXPm7RyBpGEVfRzbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "727086221756-dvohl8fgg6ae0v5tbjep5d28o7blhboc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

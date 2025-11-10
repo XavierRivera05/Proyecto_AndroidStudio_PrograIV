@@ -1,65 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:padding="16dp"
-    android:background="?android:colorBackground"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?android:colorBackground"
+    android:padding="12dp">
 
-    <TextView
-        android:text="Papelera"
-        android:textColor="?android:textColorPrimary"
-        android:textStyle="bold"
-        android:textSize="18sp"
-        android:layout_marginBottom="8dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <!-- 🔹 Barra superior -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_margin="8dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/volver"
-        android:src="@android:drawable/ic_menu_revert" />
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="@string/volver"
+            app:tint="?android:textColorPrimary" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Papelera"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="?android:textColorPrimary"
+            android:layout_marginStart="8dp" />
+    </LinearLayout>
+
+    <!-- 🔹 Lista de notas eliminadas -->
     <ListView
         android:id="@+id/listTrash"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="?android:colorBackground"
         android:divider="?android:attr/listDivider"
         android:dividerHeight="1dp"
-        android:padding="8dp" />
+        android:padding="4dp"
+        android:background="?android:colorBackground" />
 
+    <!-- 🔹 Texto si está vacía -->
     <TextView
         android:id="@+id/emptyTrash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="No hay notas en Papelera"
+        android:text="No hay notas en la papelera"
         android:textColor="?android:textColorPrimary"
         android:alpha="0.6"
-        android:layout_marginTop="8dp"
-        android:visibility="gone"/>
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
 
+    <!-- 🔹 Botón inferior -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="end|center_vertical"
-        android:paddingStart="12dp"
         android:paddingEnd="12dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="?android:colorBackground">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <Button
             android:id="@+id/btnVaciarPapelera"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Vaciar papelera"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:backgroundTint="#FF5252" />
     </LinearLayout>
 </LinearLayout>

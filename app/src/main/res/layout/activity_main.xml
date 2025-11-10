@@ -39,13 +39,6 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ico_notificacion"
-                app:tint="?android:textColorPrimary" />
-
-            <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:layout_margin="8dp"
                 android:src="@drawable/ico_usuario"
                 app:tint="?android:textColorPrimary" />
 
@@ -54,6 +47,17 @@
                 android:layout_height="35dp"
                 android:layout_margin="8dp"
                 android:src="@drawable/ico_opciones"
+                app:tint="?android:textColorPrimary" />
+
+            <ImageView
+                android:id="@+id/btnCerrarSesion"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/cerrar_sesion__1_"
+                android:contentDescription="Cerrar sesión"
+                android:clickable="true"
+                android:focusable="true"
                 app:tint="?android:textColorPrimary" />
         </LinearLayout>
 

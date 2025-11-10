@@ -79,12 +79,19 @@ class PapeleraActivity : AppCompatActivity() {
 
     /** Recarga la lista desde NotesStore */
     private fun load() {
-        val items = NotesStore.getTrash(this)
+        val items = NotesStore.getTrash(this)  // ← devuelve una lista de JSONObject
         data.clear()
-        data.addAll(items)
+
+        // Convertir cada JSONObject en su título o en "(Sin título)"
+        for (note in items) {
+            val title = note.optString("title", "(Sin título)")
+            data.add(title)
+        }
+
         adapter.notifyDataSetChanged()
         empty.visibility = if (data.isEmpty()) View.VISIBLE else View.GONE
     }
+
 
     /** Vacía toda la papelera y vuelve a cargar */
     private fun emptyTrashAndReload() {

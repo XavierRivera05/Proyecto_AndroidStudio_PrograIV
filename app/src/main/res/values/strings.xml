@@ -27,6 +27,8 @@
     <!-- Descripciones de accesibilidad -->
     <string name="user_icon_desc">Icono de usuario</string>
     <string name="google_login_desc">Iniciar sesión con Google</string>
+    <string name="default_web_client_id">727086221756-5fpioviq88ij4fkhm6gpve2rmg6v1nu5.apps.googleusercontent.com</string>
+
 
     <!-- Placeholders -->
     <string name="hint_email">Correo electrónico</string>
