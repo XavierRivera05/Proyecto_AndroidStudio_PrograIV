@@ -33,10 +33,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // ✅ Inicializa Firebase
+        //Inicializar Firebase
         FirebaseApp.initializeApp(this)
 
-        // ✅ Botón de cerrar sesión
+        //Botón de cerrar sesión
         findViewById<View>(R.id.btnCerrarSesion)?.setOnClickListener {
             FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, LoginActivity::class.java)
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        // ✅ Botón modo claro/oscuro
+        //Botón modo claro/oscuro
         findViewById<View>(R.id.btnModo).setOnClickListener {
             val next = ThemeUtils.toggleTheme(this)
             val msg = if (next == AppCompatDelegate.MODE_NIGHT_YES)
@@ -54,17 +54,17 @@ class MainActivity : AppCompatActivity() {
             recreate()
         }
 
-        // ✅ Botón para ir a papelera
+        //Botón para ir a papelera
         findViewById<View>(R.id.btnBorrar).setOnClickListener {
             startActivity(Intent(this, PapeleraActivity::class.java))
         }
 
-        // ✅ Botón para nueva nota
+        //Botón para nueva nota
         findViewById<View>(R.id.btnNuevo).setOnClickListener {
             startActivity(Intent(this, EditorNotaActivity::class.java))
         }
 
-        // ✅ Inicializar lista de notas
+        //Inicializar lista de notas
         listNotas = findViewById(R.id.listNotas)
         emptyNotas = findViewById(R.id.emptyNotas)
         listNotas.emptyView = emptyNotas
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Error al mover a papelera: ${it.localizedMessage}", Toast.LENGTH_LONG).show()
                 }
                 loadNotes()
-                Toast.makeText(this, "Nota movida a la papelera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "¡Nota movida a la papelera!", Toast.LENGTH_SHORT).show()
             }
             listNotas.adapter = a
             adapterAny = a
@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    // 🔥 Sincroniza tus notas locales a Firebase
+    //Sincronizar notas locales con firebase
     private fun syncToFirebase() {
         val allNotes = NotesStore.getAllNotes(this)
         val ref = database.child("usuario1")

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NotipadMemo">
 
-        <!-- ✅ LOGIN ACTIVITY: ahora es la pantalla de inicio -->
+        <!--LOGIN ACTIVITY: ahora es la pantalla de inicio -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <!-- ❌ QUITAMOS el intent-filter del MainActivity -->
+        <!--QUITAMOS el intent-filter del MainActivity -->
         <activity
             android:name=".MainActivity"
             android:exported="false"

@@ -65,15 +65,14 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    // 🔥 Firebase BoM (maneja versiones automáticamente)
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-// 🔹 Firebase Core (Analytics opcional)
+//firebase Core
     implementation("com.google.firebase:firebase-analytics")
-// 🔹 Firebase Authentication (si usarás login)
+//firebase authentication (login)
     implementation("com.google.firebase:firebase-auth")
-// 🔹 Firebase Realtime Database (para guardar notas)
+//firebase realtime database (guardar notas)
     implementation("com.google.firebase:firebase-database")
-// 🔹 Firebase Storage (si guardarás imágenes)
+//firebase storage (imágenes)
     implementation("com.google.firebase:firebase-storage")
 
 

@@ -21,8 +21,9 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var registerButton: Button
-    private lateinit var googleIconButton: ImageButton
 
+    private lateinit var loginButton: Button
+    private lateinit var googleIconButton: ImageButton
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
@@ -38,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         passwordInput = findViewById(R.id.passwordInput)
         registerButton = findViewById(R.id.registerButton)
         googleIconButton = findViewById(R.id.googleIconButton)
+        loginButton = findViewById(R.id.loginButton) //nuevo
 
         // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
@@ -58,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Usuario registrado ✅", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
                         goToMain()
                     }
                     .addOnFailureListener {
@@ -69,19 +71,38 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
+        //Botón de login aprobado por chayanne (email + password)
+        loginButton.setOnClickListener {
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
+
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .addOnSuccessListener {
+                        Toast.makeText(this, "¡Sesión iniciada!", Toast.LENGTH_SHORT).show()
+                        goToMain()
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_LONG).show()
+                    }
+            } else {
+                Toast.makeText(this, "Campos incompletos", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         // Botón de Google
         googleIconButton.setOnClickListener {
             signInWithGoogle()
         }
     }
 
-    // 🔹 Función para lanzar el flujo de Google
+    //Función para lanzar el flujo de Google
     private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    // 🔹 Resultado del inicio de sesión
+    //Resultado del inicio de sesión
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -96,7 +117,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 🔹 Vincular la cuenta de Google con Firebase
+    //Vincular la cuenta de Google con Firebase
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -110,7 +131,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    // 🔹 Si el usuario ya ha iniciado sesión previamente, lo mandamos directo al MainActivity
+    //Si el usuario ya ha iniciado sesión previamente, lo mandamos directo al MainActivity
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser

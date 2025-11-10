@@ -15,9 +15,7 @@ object NotesStore {
     private const val TRASH_FILE = "trash.json"
     private val database = FirebaseDatabase.getInstance().reference.child("notas")
 
-    // ============================================================
-    // 📘 SECCIÓN DE NOTAS ACTIVAS
-    // ============================================================
+    //SECCIÓN DE NOTAS ACTIVAS
 
     fun getAllNotes(context: Context): MutableList<JSONObject> {
         val file = File(context.filesDir, FILE_NAME)
@@ -38,7 +36,7 @@ object NotesStore {
         file.writeText(jsonArray.toString())
     }
 
-    // 🔹 Guarda o actualiza una nota local y la sube a Firebase (sin duplicar)
+    //Guarda o actualiza una nota local y la sube a Firebase (sin duplicar)
     fun saveNote(context: Context, note: JSONObject) {
         val notes = getAllNotes(context)
 
@@ -63,7 +61,7 @@ object NotesStore {
         uploadNoteToFirebase(note)
     }
 
-    // 🔹 Sube o actualiza una nota específica en Firebase (con ID fijo y sincronizado)
+    //Sube o actualiza una nota específica en Firebase (con ID fijo y sincronizado)
     private fun uploadNoteToFirebase(note: JSONObject) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "usuario1"
         var noteId = note.optString("id")
@@ -87,34 +85,32 @@ object NotesStore {
 
         ref.setValue(firebaseNote)
             .addOnSuccessListener {
-                Log.d("FirebaseSync", "✅ Nota subida/actualizada: $noteId")
+                Log.d("FirebaseSync", "Nota subida/actualizada: $noteId")
             }
             .addOnFailureListener {
-                Log.e("FirebaseSync", "❌ Error al subir nota: ${it.message}")
+                Log.e("FirebaseSync", "Error al subir nota: ${it.message}")
             }
     }
 
-    // 🔹 Elimina una nota de Firebase usando su ID exacto
+    //  Elimina una nota de Firebase usando su ID exacto
     fun deleteNoteFromFirebase(noteId: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: "usuario1"
         if (noteId.isBlank()) {
-            Log.e("FirebaseSync", "⚠️ No se puede eliminar: ID vacío")
+            Log.e("FirebaseSync", "No se puede eliminar: ID vacío")
             return
         }
 
         val ref = database.child(userId).child(noteId)
         ref.removeValue()
             .addOnSuccessListener {
-                Log.d("FirebaseSync", "🗑️ Nota eliminada correctamente: $noteId")
+                Log.d("FirebaseSync", "Nota eliminada: $noteId")
             }
             .addOnFailureListener {
-                Log.e("FirebaseSync", "❌ Error al eliminar nota: ${it.message}")
+                Log.e("FirebaseSync", "Error al eliminar nota: ${it.message}")
             }
     }
 
-    // ============================================================
-    // 🗑️ SECCIÓN DE PAPELERA
-    // ============================================================
+    //SECCIÓN DE PAPELERA
 
     fun getTrash(context: Context): MutableList<JSONObject> {
         val file = File(context.filesDir, TRASH_FILE)
@@ -180,9 +176,7 @@ object NotesStore {
         if (file.exists()) file.delete()
     }
 
-    // ============================================================
-    // ☁️ SINCRONIZACIÓN CON FIREBASE
-    // ============================================================
+    //SINCRONIZACIÓN CON FIREBASE O NUBELIN
 
     fun syncAllNotesToFirebase(context: Context) {
         val allNotes = getAllNotes(context)
@@ -213,13 +207,13 @@ object NotesStore {
                 val jsonArray = JSONArray(notesList)
                 file.writeText(jsonArray.toString())
 
-                Log.d("FirebaseSync", "✅ Notas descargadas: ${notesList.size}")
+                Log.d("FirebaseSync", "Notas descargadas: ${notesList.size}")
             } else {
-                Log.d("FirebaseSync", "ℹ️ No hay notas en Firebase.")
+                Log.d("FirebaseSync", "No hay notas en Firebase.")
             }
             onComplete?.invoke()
         }.addOnFailureListener {
-            Log.e("FirebaseSync", "❌ Error al descargar notas: ${it.message}")
+            Log.e("FirebaseSync", "Error al descargar notas: ${it.message}")
             onComplete?.invoke()
         }
     }
@@ -237,11 +231,11 @@ object NotesStore {
 
                 if (title.isEmpty() && content.isEmpty()) {
                     note.ref.removeValue()
-                    Log.d("FirebaseSync", "🧹 Nota vacía eliminada: ${note.key}")
+                    Log.d("FirebaseSync", "Nota vacía eliminada: ${note.key}")
                 }
             }
         }.addOnFailureListener {
-            Log.e("FirebaseSync", "❌ Error al limpiar Firebase: ${it.message}")
+            Log.e("FirebaseSync", "Error al limpiar Firebase: ${it.message}")
         }
     }
 }
