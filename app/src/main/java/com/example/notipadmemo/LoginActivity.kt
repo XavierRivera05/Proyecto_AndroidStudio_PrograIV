@@ -2,12 +2,9 @@ package com.example.notipadmemo
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -21,38 +18,57 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailInput: EditText
     private lateinit var passwordInput: EditText
     private lateinit var registerButton: Button
-
     private lateinit var loginButton: Button
     private lateinit var googleIconButton: ImageButton
+    private lateinit var themeToggleButton: ImageButton
+
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
 
     private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        //  Aplicar el tema guardado antes de inflar el layout
+        ThemeUtils.applySavedTheme(this)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicialización de vistas
+        // ======================
+        //  INICIALIZACIÓN
+        // ======================
         userIcon = findViewById(R.id.userIcon)
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
         registerButton = findViewById(R.id.registerButton)
+        loginButton = findViewById(R.id.loginButton)
         googleIconButton = findViewById(R.id.googleIconButton)
-        loginButton = findViewById(R.id.loginButton) //nuevo
+        themeToggleButton = findViewById(R.id.themeToggleButton)
 
         // Inicializar Firebase Auth
         auth = FirebaseAuth.getInstance()
 
-        // Configuración de Google Sign-In con Firebase
+        // Configurar Google Sign-In
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken(getString(R.string.default_web_client_id)) // se obtiene del JSON
+            .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // Botón de registro (email + password)
+        // ======================
+        //  BOTÓN DE TEMA
+        // ======================
+        updateThemeIcon()
+
+        themeToggleButton.setOnClickListener {
+            val newMode = ThemeUtils.toggleTheme(this)
+            updateThemeIcon(newMode)
+        }
+
+        // ======================
+        //  LOGIN Y REGISTRO
+        // ======================
         registerButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -60,18 +76,17 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Usuario registrado correctamente ✅", Toast.LENGTH_SHORT).show()
                         goToMain()
                     }
                     .addOnFailureListener {
                         Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_LONG).show()
                     }
             } else {
-                Toast.makeText(this, "Por favor completa todos los campos", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show()
             }
         }
 
-        //Botón de login aprobado por chayanne (email + password)
         loginButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -79,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "¡Sesión iniciada!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Sesión iniciada 👋", Toast.LENGTH_SHORT).show()
                         goToMain()
                     }
                     .addOnFailureListener {
@@ -90,34 +105,54 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Botón de Google
         googleIconButton.setOnClickListener {
             signInWithGoogle()
         }
     }
 
-    //Función para lanzar el flujo de Google
-    private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+    // ======================
+    //  CAMBIO DE TEMA
+    // ======================
+    private fun updateThemeIcon(currentMode: Int? = null) {
+        val mode = currentMode ?: AppCompatDelegate.getDefaultNightMode()
+        when (mode) {
+            AppCompatDelegate.MODE_NIGHT_YES -> themeToggleButton.setImageResource(R.drawable.modoclaro)
+            AppCompatDelegate.MODE_NIGHT_NO -> themeToggleButton.setImageResource(R.drawable.modo_oscuro_foreground)
+            else -> {
+                val isNight = resources.configuration.uiMode and
+                        android.content.res.Configuration.UI_MODE_NIGHT_MASK ==
+                        android.content.res.Configuration.UI_MODE_NIGHT_YES
+                themeToggleButton.setImageResource(
+                    if (isNight) R.drawable.modoclaro else R.drawable.modo_oscuro_foreground
+                )
+            }
+        }
     }
 
-    //Resultado del inicio de sesión
+    // ======================
+    // 🔹 GOOGLE SIGN-IN
+    // ======================
+    private fun signInWithGoogle() {
+        //  Forzar selector de cuenta antes de iniciar sesión
+        googleSignInClient.signOut().addOnCompleteListener {
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
                 firebaseAuthWithGoogle(account.idToken!!)
             } catch (e: ApiException) {
-                Toast.makeText(this, "Falló el inicio de sesión con Google: ${e.statusCode}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error al iniciar sesión con Google: ${e.statusCode}", Toast.LENGTH_LONG).show()
             }
         }
     }
 
-    //Vincular la cuenta de Google con Firebase
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -127,17 +162,17 @@ class LoginActivity : AppCompatActivity() {
                 goToMain()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Error en FirebaseAuth: ${it.message}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_LONG).show()
             }
     }
 
-    //Si el usuario ya ha iniciado sesión previamente, lo mandamos directo al MainActivity
+    // ======================
+    //  FLUJO PRINCIPAL
+    // ======================
     override fun onStart() {
         super.onStart()
-        val currentUser = auth.currentUser
-        if (currentUser != null) {
-            goToMain()
-        }
+        // Si ya hay sesión activa, redirigir directo al Main
+        if (auth.currentUser != null) goToMain()
     }
 
     private fun goToMain() {
