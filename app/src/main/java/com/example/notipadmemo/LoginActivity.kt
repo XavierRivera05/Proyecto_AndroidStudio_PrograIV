@@ -28,13 +28,15 @@ class LoginActivity : AppCompatActivity() {
     private val RC_SIGN_IN = 9001
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // ✅ Aplicar el tema guardado antes de inflar el layout
+        //  Aplicar el tema guardado antes de inflar el layout
         ThemeUtils.applySavedTheme(this)
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // Inicialización de vistas
+        // ======================
+        //  INICIALIZACIÓN
+        // ======================
         userIcon = findViewById(R.id.userIcon)
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
@@ -55,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
         // ======================
-        // 🌗 BOTÓN DE TEMA
+        //  BOTÓN DE TEMA
         // ======================
         updateThemeIcon()
 
@@ -65,7 +67,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // ======================
-        // 🧍 LOGIN Y REGISTRO
+        //  LOGIN Y REGISTRO
         // ======================
         registerButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
@@ -74,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Usuario registrado correctamente ✅", Toast.LENGTH_SHORT).show()
                         goToMain()
                     }
                     .addOnFailureListener {
@@ -92,7 +94,7 @@ class LoginActivity : AppCompatActivity() {
             if (email.isNotEmpty() && password.isNotEmpty()) {
                 auth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        Toast.makeText(this, "Sesión iniciada", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Sesión iniciada 👋", Toast.LENGTH_SHORT).show()
                         goToMain()
                     }
                     .addOnFailureListener {
@@ -108,7 +110,9 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 🔹 Cambiar icono según tema actual
+    // ======================
+    //  CAMBIO DE TEMA
+    // ======================
     private fun updateThemeIcon(currentMode: Int? = null) {
         val mode = currentMode ?: AppCompatDelegate.getDefaultNightMode()
         when (mode) {
@@ -125,10 +129,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // 🔹 Google Sign-In
+    // ======================
+    // 🔹 GOOGLE SIGN-IN
+    // ======================
     private fun signInWithGoogle() {
-        val signInIntent = googleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
+        //  Forzar selector de cuenta antes de iniciar sesión
+        googleSignInClient.signOut().addOnCompleteListener {
+            val signInIntent = googleSignInClient.signInIntent
+            startActivityForResult(signInIntent, RC_SIGN_IN)
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -157,8 +166,12 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
+    // ======================
+    //  FLUJO PRINCIPAL
+    // ======================
     override fun onStart() {
         super.onStart()
+        // Si ya hay sesión activa, redirigir directo al Main
         if (auth.currentUser != null) goToMain()
     }
 

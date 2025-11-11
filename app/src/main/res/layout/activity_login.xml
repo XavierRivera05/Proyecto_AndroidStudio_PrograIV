@@ -42,10 +42,13 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
+        android:contentDescription="Icono de usuario"
         android:src="@drawable/circulo_de_usuario"
+        app:tint="?android:textColorPrimary"
         app:layout_constraintTop_toBottomOf="@id/appTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
     <!-- Campo de correo -->
     <com.google.android.material.textfield.TextInputLayout
