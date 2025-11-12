@@ -91,7 +91,7 @@
             android:textColorHint="?android:textColorHint"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botones -->
+    <!-- kiko   Botones -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerButton"
         android:layout_width="0dp"
@@ -118,7 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto y Google -->
+    <!-- Texto y Gugul -->
     <TextView
         android:id="@+id/textOr"
         android:layout_width="wrap_content"

@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
             false
         }
 
-        // ✅ Buscador de notas
+        //Buscador de notas
         val edtBuscar = findViewById<EditText>(R.id.edtBuscar)
         edtBuscar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        // ✅ Click en nota para editar
+        //Click en nota para editar
         listNotas.setOnItemClickListener { _, _, position, _ ->
             val realIndex = indexMap.getOrNull(position) ?: return@setOnItemClickListener
             val intent = Intent(this, EditorNotaActivity::class.java)
@@ -195,6 +195,6 @@ class MainActivity : AppCompatActivity() {
             )
             ref.push().setValue(firebaseNote)
         }
-        Toast.makeText(this, "Notas sincronizadas con Firebase ☁️", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Notas sincronizadas con Firebase", Toast.LENGTH_SHORT).show()
     }
 }

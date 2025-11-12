@@ -33,7 +33,7 @@ class EditorNotaActivity : AppCompatActivity() {
         val chkFavorita = findViewById<CheckBox>(R.id.checkFavorita)
         val chkFijada = findViewById<CheckBox>(R.id.checkFijada)
 
-        // 🔹 Si venimos a editar una nota existente
+        //Si se viene a editar una nota existente
         noteIndex = intent.getIntExtra("note_index", -1)
         if (noteIndex >= 0) {
             val notas = NotesStore.getAllNotes(this)
@@ -55,19 +55,19 @@ class EditorNotaActivity : AppCompatActivity() {
             }
         }
 
-        // 🔹 Botón atrás
+        //Botón atrás
         findViewById<View>(R.id.btnBack).setOnClickListener {
             guardarNota(inputTitulo, inputContenido)
             finish()
         }
 
-        // 🔹 Botón guardar
+        //Botón guardar
         findViewById<View>(R.id.btnGuardar).setOnClickListener {
             guardarNota(inputTitulo, inputContenido)
             finish()
         }
 
-        // 🔹 Botón eliminar
+        //Botón eliminar
         findViewById<View>(R.id.btnEliminar)?.setOnClickListener {
             if (noteIndex >= 0) {
                 NotesStore.moveToTrash(this, noteIndex)
@@ -78,7 +78,7 @@ class EditorNotaActivity : AppCompatActivity() {
             finish()
         }
 
-        // 🔹 Selector de color
+        //Selector de color
         colorViews.forEachIndexed { index, view ->
             view.setOnClickListener {
                 selectedColor = colores[index]
@@ -91,7 +91,7 @@ class EditorNotaActivity : AppCompatActivity() {
         chkFijada.setOnCheckedChangeListener { _, isChecked -> isPinned = isChecked }
     }
 
-    // 🟢 Función para crear o actualizar una nota
+    // Función para crear o actualizar una nota
     private fun guardarNota(inputTitulo: EditText, inputContenido: EditText) {
         val titulo = inputTitulo.text.toString().trim()
         val contenido = inputContenido.text.toString().trim()
@@ -113,7 +113,7 @@ class EditorNotaActivity : AppCompatActivity() {
                 it.put("pinned", isPinned)
                 NotesStore.saveNote(this, it)
             }
-            Toast.makeText(this, "Nota actualizada ☁️", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nota actualizada :)", Toast.LENGTH_SHORT).show()
         } else {
             // Crear nueva nota
             val noteJson = JSONObject()
@@ -125,7 +125,7 @@ class EditorNotaActivity : AppCompatActivity() {
             noteJson.put("time", System.currentTimeMillis())
 
             NotesStore.saveNote(this, noteJson)
-            Toast.makeText(this, "Nota guardada y sincronizada ☁️", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Nota guardada y sincronizada :)", Toast.LENGTH_SHORT).show()
         }
     }
 }
