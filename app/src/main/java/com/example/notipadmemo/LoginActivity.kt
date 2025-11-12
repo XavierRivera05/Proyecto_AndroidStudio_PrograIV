@@ -34,9 +34,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        // ======================
         //  INICIALIZACIÓN
-        // ======================
         userIcon = findViewById(R.id.userIcon)
         emailInput = findViewById(R.id.emailInput)
         passwordInput = findViewById(R.id.passwordInput)
@@ -56,9 +54,7 @@ class LoginActivity : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
-        // ======================
         //  BOTÓN DE TEMA
-        // ======================
         updateThemeIcon()
 
         themeToggleButton.setOnClickListener {
@@ -66,9 +62,7 @@ class LoginActivity : AppCompatActivity() {
             updateThemeIcon(newMode)
         }
 
-        // ======================
         //  LOGIN Y REGISTRO
-        // ======================
         registerButton.setOnClickListener {
             val email = emailInput.text.toString().trim()
             val password = passwordInput.text.toString().trim()
@@ -110,9 +104,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // ======================
     //  CAMBIO DE TEMA
-    // ======================
+
     private fun updateThemeIcon(currentMode: Int? = null) {
         val mode = currentMode ?: AppCompatDelegate.getDefaultNightMode()
         when (mode) {
@@ -129,9 +122,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    // ======================
-    // 🔹 GOOGLE SIGN-IN
-    // ======================
+    // GOOGLE SIGN-IN
+
     private fun signInWithGoogle() {
         //  Forzar selector de cuenta antes de iniciar sesión
         googleSignInClient.signOut().addOnCompleteListener {
@@ -166,9 +158,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    // ======================
     //  FLUJO PRINCIPAL
-    // ======================
     override fun onStart() {
         super.onStart()
         // Si ya hay sesión activa, redirigir directo al Main

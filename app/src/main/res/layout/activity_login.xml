@@ -12,8 +12,8 @@
     <!-- Botón de cambio de tema -->
     <ImageButton
         android:id="@+id/themeToggleButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
@@ -91,7 +91,7 @@
             android:textColorHint="?android:textColorHint"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Botones -->
+    <!-- kiko   Botones -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/registerButton"
         android:layout_width="0dp"
@@ -118,7 +118,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto y Google -->
+    <!-- Texto y Gugul -->
     <TextView
         android:id="@+id/textOr"
         android:layout_width="wrap_content"
